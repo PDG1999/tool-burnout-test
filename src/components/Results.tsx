@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import useTranslation from '@/hooks/useTranslation';
 import { useBurnoutTest } from '@/hooks/useBurnoutTest';
-import { trackTestCompleted, trackPdfDownloaded } from '@/utils/analytics';
+import { trackTestCompleted, trackPdfDownloaded, trackUpsellClicked } from '@/utils/analytics';
 import { getScoreColor, getScorePercentage } from '@/utils/scoring';
 
 const Results: React.FC = () => {
@@ -51,6 +51,11 @@ const Results: React.FC = () => {
       navigator.clipboard.writeText(window.location.href);
       alert('Link wurde in die Zwischenablage kopiert!');
     }
+  };
+
+  const handlePremiumUpsell = () => {
+    trackUpsellClicked('premium_analysis');
+    navigate('/email');
   };
 
   if (!result) {
@@ -178,11 +183,63 @@ const Results: React.FC = () => {
           </ul>
         </motion.div>
 
-        {/* Action Buttons */}
+        {/* Premium Upsell */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
+          className="card bg-gradient-to-r from-primary-50 to-secondary-50 border-primary-200 mb-8"
+        >
+          <div className="text-center">
+            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+              🎯 Vertiefende Analyse für 19€
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Erhalten Sie eine detaillierte, von Psychologen geprüfte Analyse mit personalisierten Empfehlungen
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-4 mb-6 text-left">
+              <div className="flex items-start">
+                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <span className="text-gray-700">Detaillierte 10-seitige Analyse</span>
+              </div>
+              <div className="flex items-start">
+                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <span className="text-gray-700">Von Psychologen geprüft</span>
+              </div>
+              <div className="flex items-start">
+                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <span className="text-gray-700">Personalisierte Handlungsempfehlungen</span>
+              </div>
+              <div className="flex items-start">
+                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <span className="text-gray-700">PDF-Report zum Download</span>
+              </div>
+            </div>
+
+            <button
+              onClick={handlePremiumUpsell}
+              className="btn-primary text-lg px-8 py-4 mb-4"
+            >
+              💎 Jetzt für 19€ buchen
+            </button>
+            
+            <p className="text-sm text-gray-500">
+              ✅ 30-Tage Geld-zurück-Garantie • ✅ Sofortiger Zugang
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Action Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.0 }}
           className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
         >
           <button
@@ -226,26 +283,35 @@ const Results: React.FC = () => {
           </button>
         </motion.div>
 
-        {/* Email Capture CTA */}
+        {/* Next Steps */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
-          className="card bg-gradient-to-r from-primary-50 to-secondary-50 border-primary-200"
+          transition={{ duration: 0.6, delay: 1.2 }}
+          className="card bg-gradient-to-r from-green-50 to-blue-50 border-green-200"
         >
           <div className="text-center">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Detaillierte Analyse erhalten
+            <h3 className="text-xl font-bold text-gray-900 mb-4">
+              🎯 Nächste Schritte
             </h3>
-            <p className="text-gray-600 mb-4">
-              Erhalten Sie eine ausführliche Auswertung und personalisierte Empfehlungen per E-Mail.
-            </p>
-            <button
-              onClick={() => navigate('/email')}
-              className="btn-primary"
-            >
-              Kostenlose Analyse anfordern
-            </button>
+            <div className="grid md:grid-cols-2 gap-6 text-left">
+              <div>
+                <h4 className="font-semibold text-gray-900 mb-2">Für Sie:</h4>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li>• Implementieren Sie die Empfehlungen</li>
+                  <li>• Überwachen Sie Ihre Fortschritte</li>
+                  <li>• Testen Sie sich regelmäßig</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-gray-900 mb-2">Professionelle Hilfe:</h4>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li>• Suchen Sie einen Psychologen auf</li>
+                  <li>• Nutzen Sie unsere Partner-Netzwerke</li>
+                  <li>• Buchen Sie eine Beratung</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>

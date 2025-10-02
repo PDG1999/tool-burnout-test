@@ -1,7 +1,9 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { BurnoutAnswer, BurnoutResult, UserSession } from '@/types/burnout';
 import { generateBurnoutResult } from '@/utils/scoring';
 import { MBI_QUESTIONS } from '@/data/mbi-questions';
+
+const STORAGE_KEY = 'burnout_test_session';
 
 export const useBurnoutTest = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -12,6 +14,42 @@ export const useBurnoutTest = () => {
 
   const totalQuestions = MBI_QUESTIONS.length;
   const currentQuestion = MBI_QUESTIONS[currentQuestionIndex];
+
+  // Load session from localStorage on mount
+  useEffect(() => {
+    const savedSession = localStorage.getItem(STORAGE_KEY);
+    if (savedSession) {
+      try {
+        const parsed = JSON.parse(savedSession);
+        if (parsed.result) {
+          setResult(parsed.result);
+          setIsCompleted(true);
+        }
+        if (parsed.answers) {
+          setAnswers(parsed.answers);
+        }
+        if (parsed.session) {
+          setSession(parsed.session);
+        }
+      } catch (error) {
+        console.error('Error loading session from localStorage:', error);
+        localStorage.removeItem(STORAGE_KEY);
+      }
+    }
+  }, []);
+
+  // Save session to localStorage whenever it changes
+  useEffect(() => {
+    if (session || answers.length > 0 || result) {
+      const sessionData = {
+        session,
+        answers,
+        result,
+        isCompleted
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(sessionData));
+    }
+  }, [session, answers, result, isCompleted]);
 
   const startTest = useCallback(() => {
     const newSession: UserSession = {
@@ -24,6 +62,7 @@ export const useBurnoutTest = () => {
     setAnswers([]);
     setIsCompleted(false);
     setResult(null);
+    localStorage.removeItem(STORAGE_KEY);
   }, []);
 
   const answerQuestion = useCallback((questionId: string, score: number) => {
@@ -68,6 +107,7 @@ export const useBurnoutTest = () => {
     setIsCompleted(false);
     setResult(null);
     setSession(null);
+    localStorage.removeItem(STORAGE_KEY);
   }, []);
 
   const getCurrentAnswer = useCallback((questionId: string): number | undefined => {

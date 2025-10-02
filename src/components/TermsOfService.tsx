@@ -1,10 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useTranslation from '@/hooks/useTranslation';
 
 const TermsOfService: React.FC = () => {
-  const { t } = useTranslation();
-
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,7 +46,7 @@ const TermsOfService: React.FC = () => {
               Gegen Entgelt bieten wir zusätzliche Services:
             </p>
             <ul>
-              <li>Detaillierte Analyse (29€)</li>
+              <li>Detaillierte Analyse (19€)</li>
               <li>Coaching-Programm (197€)</li>
             </ul>
 

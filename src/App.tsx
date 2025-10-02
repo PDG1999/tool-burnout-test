@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { updateMetaTags } from '@/utils/meta';
 import { initializeAnalytics } from '@/utils/analytics';
 import { currentConfig } from '@/config/language';
-import useTranslation from '@/hooks/useTranslation';
 
 // Components
 import LandingPage from '@/components/LandingPage';
@@ -14,8 +13,6 @@ import PrivacyPolicy from '@/components/PrivacyPolicy';
 import TermsOfService from '@/components/TermsOfService';
 
 function App() {
-  const { t } = useTranslation();
-
   useEffect(() => {
     // Initialize analytics
     initializeAnalytics();

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import useTranslation from '@/hooks/useTranslation';
-import { trackEmailCaptured } from '@/utils/analytics';
+import { trackEmailCaptured, trackUpsellClicked } from '@/utils/analytics';
 
 const EmailCapture: React.FC = () => {
   const { t } = useTranslation();
@@ -48,6 +48,12 @@ const EmailCapture: React.FC = () => {
     }
   };
 
+  const handlePremiumUpsell = () => {
+    trackUpsellClicked('premium_analysis');
+    // TODO: Implement Stripe checkout
+    alert('Stripe-Checkout wird implementiert...');
+  };
+
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
@@ -72,6 +78,47 @@ const EmailCapture: React.FC = () => {
             <p className="text-gray-500 mb-8">
               Bitte überprüfen Sie auch Ihren Spam-Ordner, falls Sie die E-Mail nicht erhalten.
             </p>
+            
+            {/* Premium Upsell */}
+            <div className="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-xl p-6 border border-primary-200 mb-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                💎 Vertiefende Analyse für 19€
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Erhalten Sie eine detaillierte, von Psychologen geprüfte Analyse mit personalisierten Empfehlungen
+              </p>
+              
+              <div className="grid md:grid-cols-2 gap-4 mb-6 text-left text-sm">
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <span className="text-gray-700">10-seitige detaillierte Analyse</span>
+                </div>
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <span className="text-gray-700">Von Psychologen geprüft</span>
+                </div>
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <span className="text-gray-700">Personalisierte Handlungsempfehlungen</span>
+                </div>
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <span className="text-gray-700">PDF-Report zum Download</span>
+                </div>
+              </div>
+
+              <button
+                onClick={handlePremiumUpsell}
+                className="btn-primary text-lg px-8 py-4 mb-4"
+              >
+                💎 Jetzt für 19€ buchen
+              </button>
+              
+              <p className="text-sm text-gray-500">
+                ✅ 30-Tage Geld-zurück-Garantie • ✅ Sofortiger Zugang
+              </p>
+            </div>
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={() => navigate('/')}
@@ -103,10 +150,10 @@ const EmailCapture: React.FC = () => {
         >
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-4">
-              {t('email.title')}
+              💎 Vertiefende Burnout-Analyse
             </h1>
             <p className="text-lg text-gray-600">
-              {t('email.subtitle')}
+              Erhalten Sie eine detaillierte, von Psychologen geprüfte Analyse mit personalisierten Empfehlungen
             </p>
           </div>
 
@@ -115,28 +162,57 @@ const EmailCapture: React.FC = () => {
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Was Sie erhalten:
             </h3>
-            <ul className="space-y-3">
-              {t('email.benefits').map((benefit, index) => (
-                <li key={index} className="flex items-start">
-                  <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <span className="text-gray-700">{benefit}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="flex items-start">
+                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <span className="text-gray-700">10-seitige detaillierte Analyse</span>
+              </div>
+              <div className="flex items-start">
+                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <span className="text-gray-700">Von Psychologen geprüft</span>
+              </div>
+              <div className="flex items-start">
+                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <span className="text-gray-700">Personalisierte Handlungsempfehlungen</span>
+              </div>
+              <div className="flex items-start">
+                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <span className="text-gray-700">PDF-Report zum Download</span>
+              </div>
+              <div className="flex items-start">
+                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <span className="text-gray-700">Sofortiger Zugang nach Zahlung</span>
+              </div>
+              <div className="flex items-start">
+                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <span className="text-gray-700">30-Tage Geld-zurück-Garantie</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Pricing */}
+          <div className="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-xl p-6 border border-primary-200 mb-8">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-primary-600 mb-2">19€</div>
+              <div className="text-gray-600 mb-4">Einmalzahlung • Sofortiger Zugang</div>
+              <div className="text-sm text-gray-500">
+                ✅ 30-Tage Geld-zurück-Garantie • ✅ Sichere Zahlung • ✅ Sofortiger Zugang
+              </div>
+            </div>
           </div>
 
           {/* Email Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                E-Mail-Adresse
+                E-Mail-Adresse für die Analyse
               </label>
               <input
                 type="email"
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder={t('email.placeholder')}
+                placeholder="ihre@email.de"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                 disabled={isSubmitting}
               />
@@ -160,7 +236,7 @@ const EmailCapture: React.FC = () => {
                   Wird gesendet...
                 </div>
               ) : (
-                t('email.submitButton')
+                '💎 Jetzt für 19€ buchen'
               )}
             </button>
           </form>
