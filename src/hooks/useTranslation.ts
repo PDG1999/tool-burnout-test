@@ -2,39 +2,28 @@ import { useMemo } from 'react';
 import { getTranslations } from '@/translations';
 import { currentLanguage } from '@/config/language';
 
-const useTranslation = () => {
+export const useTranslation = () => {
   const translations = useMemo(() => {
     return getTranslations(currentLanguage);
   }, []);
 
-  const t = (key: string, params?: Record<string, string | number>): string => {
+  const t = (key: string) => {
     const keys = key.split('.');
     let value: any = translations;
     
     for (const k of keys) {
-      value = value?.[k];
-      if (value === undefined) {
+      if (value && typeof value === 'object' && k in value) {
+        value = value[k];
+      } else {
         console.warn(`Translation key not found: ${key}`);
         return key;
       }
     }
     
-    if (typeof value !== 'string') {
-      console.warn(`Translation value is not a string: ${key}`);
-      return key;
-    }
-    
-    // Replace placeholders
-    if (params) {
-      return value.replace(/\{(\w+)\}/g, (match, paramKey) => {
-        return params[paramKey]?.toString() || match;
-      });
-    }
-    
-    return value;
+    return typeof value === 'string' ? value : key;
   };
 
-  return { t, language: currentLanguage };
+  return { t, translations, language: currentLanguage };
 };
 
 export default useTranslation;

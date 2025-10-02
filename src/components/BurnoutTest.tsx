@@ -85,7 +85,7 @@ const BurnoutTest: React.FC = () => {
           </div>
           
           <p className="text-sm text-gray-500">
-            {t('test.progress', { current: currentQuestionIndex + 1, total: totalQuestions })}
+            Frage {currentQuestionIndex + 1} von {totalQuestions}
           </p>
         </div>
 

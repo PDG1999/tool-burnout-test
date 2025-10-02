@@ -10,23 +10,12 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    port: parseInt(process.env.VITE_PORT || '3000'),
+    host: true
+  },
   build: {
     outDir: 'dist',
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
-          pdf: ['jspdf', 'html2canvas'],
-          motion: ['framer-motion']
-        }
-      }
-    }
-  },
-  server: {
-    port: 3000,
-    host: true
+    sourcemap: true
   }
 })

@@ -12,8 +12,19 @@ export interface LanguageConfig {
   domain: string;
 }
 
+// Get language from URL or environment
+const getLanguageFromUrl = (): Language => {
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    if (hostname.includes('burnout-test.samebi.net')) return 'de';
+    if (hostname.includes('burnout-check.samebi.net')) return 'en';
+    if (hostname.includes('test-burnout.samebi.net')) return 'es';
+  }
+  return (import.meta.env.VITE_LANGUAGE || 'es') as Language;
+};
+
 export const getLanguageConfig = (): LanguageConfig => {
-  const lang = (import.meta.env.VITE_LANGUAGE || 'es') as Language;
+  const lang = getLanguageFromUrl();
   
   const configs: Record<Language, LanguageConfig> = {
     de: {
