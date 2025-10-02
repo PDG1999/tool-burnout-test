@@ -24,7 +24,7 @@ const Results: React.FC = () => {
       setIsLoading(false);
       // Track test completion
       trackTestCompleted(result.scores, result.level.level);
-    }, 1000);
+    }, 2000); // Increased timeout to 2 seconds
 
     return () => clearTimeout(timer);
   }, [result, navigate]);
