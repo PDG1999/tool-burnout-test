@@ -11,15 +11,22 @@ const Results: React.FC = () => {
   const navigate = useNavigate();
   const { result, resetTest } = useBurnoutTest();
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!result) {
-      navigate('/');
-      return;
-    }
+    // Wait a bit to see if result loads from localStorage
+    const timer = setTimeout(() => {
+      if (!result) {
+        console.log('No result found, redirecting to home');
+        navigate('/');
+        return;
+      }
+      setIsLoading(false);
+      // Track test completion
+      trackTestCompleted(result.scores, result.level.level);
+    }, 1000);
 
-    // Track test completion
-    trackTestCompleted(result.scores, result.level.level);
+    return () => clearTimeout(timer);
   }, [result, navigate]);
 
   const handleStartNewTest = () => {
@@ -58,12 +65,30 @@ const Results: React.FC = () => {
     navigate('/email');
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Lade Ergebnisse...</p>
+        </div>
+      </div>
+    );
+  }
+
   if (!result) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">{t('common.loading')}</p>
+          <div className="text-red-600 text-6xl mb-4">⚠️</div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Keine Ergebnisse gefunden</h1>
+          <p className="text-gray-600 mb-6">Es wurden keine Testergebnisse gefunden. Bitte starten Sie den Test erneut.</p>
+          <button
+            onClick={() => navigate('/')}
+            className="btn-primary"
+          >
+            Test starten
+          </button>
         </div>
       </div>
     );
@@ -176,7 +201,7 @@ const Results: React.FC = () => {
           <ul className="space-y-3">
             {result.level.recommendations.map((recommendation, index) => (
               <li key={index} className="flex items-start">
-                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                 <span className="text-gray-700">{recommendation}</span>
               </li>
             ))}
@@ -188,16 +213,16 @@ const Results: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="card bg-gradient-to-r from-primary-50 to-secondary-50 border-primary-200 mb-8"
+          className="card bg-gradient-to-r from-red-50 to-orange-50 border-red-200 mb-8"
         >
           <div className="text-center">
-            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-2">
-              🎯 Vertiefende Analyse für 19€
+              💎 Vertiefende Analyse für 19€
             </h3>
             <p className="text-gray-600 mb-6">
               Erhalten Sie eine detaillierte, von Psychologen geprüfte Analyse mit personalisierten Empfehlungen
@@ -205,19 +230,19 @@ const Results: React.FC = () => {
             
             <div className="grid md:grid-cols-2 gap-4 mb-6 text-left">
               <div className="flex items-start">
-                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                <span className="text-gray-700">Detaillierte 10-seitige Analyse</span>
+                <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <span className="text-gray-700">10-seitige detaillierte Analyse</span>
               </div>
               <div className="flex items-start">
-                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                 <span className="text-gray-700">Von Psychologen geprüft</span>
               </div>
               <div className="flex items-start">
-                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                 <span className="text-gray-700">Personalisierte Handlungsempfehlungen</span>
               </div>
               <div className="flex items-start">
-                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                 <span className="text-gray-700">PDF-Report zum Download</span>
               </div>
             </div>

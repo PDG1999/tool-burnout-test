@@ -11,6 +11,9 @@ import Results from '@/components/Results';
 import EmailCapture from '@/components/EmailCapture';
 import PrivacyPolicy from '@/components/PrivacyPolicy';
 import TermsOfService from '@/components/TermsOfService';
+import About from '@/components/About';
+import Contact from '@/components/Contact';
+import FAQ from '@/components/FAQ';
 
 function App() {
   useEffect(() => {
@@ -33,6 +36,9 @@ function App() {
           <Route path="/test" element={<BurnoutTest />} />
           <Route path="/results" element={<Results />} />
           <Route path="/email" element={<EmailCapture />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />
         </Routes>
