@@ -1,0 +1,30 @@
+{
+  "name": "burnout-test-samebi",
+  "description": "Wissenschaftlich validierter Burnout-Test basierend auf MBI",
+  "repository": "https://github.com/PDG1999/tool-burnout-test",
+  "branch": "main",
+  "build_command": "npm ci && npm run build",
+  "output_directory": "dist",
+  "index_file": "index.html",
+  "environment_variables": {
+    "VITE_LANGUAGE": "de",
+    "VITE_API_URL": "https://api.samebi.net",
+    "VITE_GA_TRACKING_ID": "G-DE-XXXXXXXXX",
+    "VITE_EMAIL_SERVICE_URL": "https://api.samebi.net/email",
+    "VITE_STRIPE_PUBLIC_KEY": "pk_live_de_xxx",
+    "VITE_APP_NAME": "Burnout-Test SAMEBI",
+    "VITE_APP_DESCRIPTION": "Wissenschaftlich validierter Burnout-Test basierend auf MBI",
+    "VITE_SUPPORT_EMAIL": "support@samebi.net",
+    "VITE_COMPANY_NAME": "SAMEBI Deutschland",
+    "VITE_DOMAIN": "burnout-test.samebi.net"
+  },
+  "domains": [
+    "burnout-test.samebi.net"
+  ],
+  "health_check": {
+    "path": "/health",
+    "interval": 30
+  },
+  "auto_deploy": true,
+  "preview_deployments": true
+}
