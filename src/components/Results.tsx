@@ -42,21 +42,21 @@ const Results: React.FC = () => {
     setTimeout(() => {
       setIsGeneratingPdf(false);
       // For now, just show an alert
-      alert('PDF-Download wird implementiert...');
+      alert(t('common.pdfDownloadComingSoon') || 'PDF-Download wird implementiert...');
     }, 2000);
   };
 
   const handleShareResults = () => {
     if (navigator.share) {
       navigator.share({
-        title: 'Meine Burnout-Test Ergebnisse',
-        text: `Mein Burnout-Level: ${result?.level.description}`,
+        title: t('results.shareTitle') || 'Meine Burnout-Test Ergebnisse',
+        text: `${t('results.shareText') || 'Mein Burnout-Level'}: ${result?.level.description}`,
         url: window.location.href
       });
     } else {
       // Fallback: Copy to clipboard
       navigator.clipboard.writeText(window.location.href);
-      alert('Link wurde in die Zwischenablage kopiert!');
+      alert(t('results.linkCopied') || 'Link wurde in die Zwischenablage kopiert!');
     }
   };
 
@@ -70,7 +70,7 @@ const Results: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Lade Ergebnisse...</p>
+          <p className="text-gray-600">{t('common.loading')}</p>
         </div>
       </div>
     );
@@ -81,13 +81,17 @@ const Results: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="text-red-600 text-6xl mb-4">⚠️</div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Keine Ergebnisse gefunden</h1>
-          <p className="text-gray-600 mb-6">Es wurden keine Testergebnisse gefunden. Bitte starten Sie den Test erneut.</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            {t('results.noResultsFound') || 'Keine Ergebnisse gefunden'}
+          </h1>
+          <p className="text-gray-600 mb-6">
+            {t('results.noResultsDescription') || 'Es wurden keine Testergebnisse gefunden. Bitte starten Sie den Test erneut.'}
+          </p>
           <button
             onClick={() => navigate('/')}
             className="btn-primary"
           >
-            Test starten
+            {t('test.startTest') || 'Test starten'}
           </button>
         </div>
       </div>
@@ -222,28 +226,28 @@ const Results: React.FC = () => {
               </svg>
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-2">
-              💎 Vertiefende Analyse für 19€
+              {t('results.premiumTitle') || '💎 Vertiefende Analyse für 19€'}
             </h3>
             <p className="text-gray-600 mb-6">
-              Erhalten Sie eine detaillierte, von Psychologen geprüfte Analyse mit personalisierten Empfehlungen
+              {t('results.premiumDescription') || 'Erhalten Sie eine detaillierte, von Psychologen geprüfte Analyse mit personalisierten Empfehlungen'}
             </p>
             
             <div className="grid md:grid-cols-2 gap-4 mb-6 text-left">
               <div className="flex items-start">
                 <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                <span className="text-gray-700">10-seitige detaillierte Analyse</span>
+                <span className="text-gray-700">{t('results.premiumFeature1') || '10-seitige detaillierte Analyse'}</span>
               </div>
               <div className="flex items-start">
                 <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                <span className="text-gray-700">Von Psychologen geprüft</span>
+                <span className="text-gray-700">{t('results.premiumFeature2') || 'Von Psychologen geprüft'}</span>
               </div>
               <div className="flex items-start">
                 <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                <span className="text-gray-700">Personalisierte Handlungsempfehlungen</span>
+                <span className="text-gray-700">{t('results.premiumFeature3') || 'Personalisierte Handlungsempfehlungen'}</span>
               </div>
               <div className="flex items-start">
                 <div className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                <span className="text-gray-700">PDF-Report zum Download</span>
+                <span className="text-gray-700">{t('results.premiumFeature4') || 'PDF-Report zum Download'}</span>
               </div>
             </div>
 
@@ -251,11 +255,11 @@ const Results: React.FC = () => {
               onClick={handlePremiumUpsell}
               className="btn-primary text-lg px-8 py-4 mb-4"
             >
-              💎 Jetzt für 19€ buchen
+              {t('results.premiumButton') || '💎 Jetzt für 19€ buchen'}
             </button>
             
             <p className="text-sm text-gray-500">
-              ✅ 30-Tage Geld-zurück-Garantie • ✅ Sofortiger Zugang
+              {t('results.premiumGuarantee') || '✅ 30-Tage Geld-zurück-Garantie • ✅ Sofortiger Zugang'}
             </p>
           </div>
         </motion.div>
@@ -275,7 +279,7 @@ const Results: React.FC = () => {
             {isGeneratingPdf ? (
               <>
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                Generiere PDF...
+                {t('results.generatingPdf') || 'Generiere PDF...'}
               </>
             ) : (
               <>
@@ -304,7 +308,7 @@ const Results: React.FC = () => {
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
-            Neuer Test
+            {t('results.newTest') || 'Neuer Test'}
           </button>
         </motion.div>
 
@@ -317,23 +321,27 @@ const Results: React.FC = () => {
         >
           <div className="text-center">
             <h3 className="text-xl font-bold text-gray-900 mb-4">
-              🎯 Nächste Schritte
+              {t('results.nextStepsTitle') || '🎯 Nächste Schritte'}
             </h3>
             <div className="grid md:grid-cols-2 gap-6 text-left">
               <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Für Sie:</h4>
+                <h4 className="font-semibold text-gray-900 mb-2">
+                  {t('results.forYou') || 'Für Sie:'}
+                </h4>
                 <ul className="space-y-2 text-sm text-gray-600">
-                  <li>• Implementieren Sie die Empfehlungen</li>
-                  <li>• Überwachen Sie Ihre Fortschritte</li>
-                  <li>• Testen Sie sich regelmäßig</li>
+                  <li>• {t('results.nextStep1') || 'Implementieren Sie die Empfehlungen'}</li>
+                  <li>• {t('results.nextStep2') || 'Überwachen Sie Ihre Fortschritte'}</li>
+                  <li>• {t('results.nextStep3') || 'Testen Sie sich regelmäßig'}</li>
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Professionelle Hilfe:</h4>
+                <h4 className="font-semibold text-gray-900 mb-2">
+                  {t('results.professionalHelp') || 'Professionelle Hilfe:'}
+                </h4>
                 <ul className="space-y-2 text-sm text-gray-600">
-                  <li>• Suchen Sie einen Psychologen auf</li>
-                  <li>• Nutzen Sie unsere Partner-Netzwerke</li>
-                  <li>• Buchen Sie eine Beratung</li>
+                  <li>• {t('results.profHelp1') || 'Suchen Sie einen Psychologen auf'}</li>
+                  <li>• {t('results.profHelp2') || 'Nutzen Sie unsere Partner-Netzwerke'}</li>
+                  <li>• {t('results.profHelp3') || 'Buchen Sie eine Beratung'}</li>
                 </ul>
               </div>
             </div>

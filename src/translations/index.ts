@@ -46,6 +46,7 @@ export interface Translations {
     backButton: string;
     submitButton: string;
     loading: string;
+    startTest: string;
     scaleLabels: Record<number, string>;
   };
   
@@ -64,6 +65,30 @@ export interface Translations {
     };
     downloadPdf: string;
     shareResults: string;
+    shareTitle: string;
+    shareText: string;
+    linkCopied: string;
+    noResultsFound: string;
+    noResultsDescription: string;
+    premiumTitle: string;
+    premiumDescription: string;
+    premiumFeature1: string;
+    premiumFeature2: string;
+    premiumFeature3: string;
+    premiumFeature4: string;
+    premiumButton: string;
+    premiumGuarantee: string;
+    generatingPdf: string;
+    newTest: string;
+    nextStepsTitle: string;
+    forYou: string;
+    nextStep1: string;
+    nextStep2: string;
+    nextStep3: string;
+    professionalHelp: string;
+    profHelp1: string;
+    profHelp2: string;
+    profHelp3: string;
   };
   
   // Email Capture
@@ -78,6 +103,7 @@ export interface Translations {
     loading: string;
     error: string;
     retry: string;
+    pdfDownloadComingSoon: string;
   };
 }
 
@@ -121,6 +147,7 @@ const translations: Record<Language, Translations> = {
       backButton: 'Zurück',
       submitButton: 'Test abschließen',
       loading: 'Lade Test...',
+      startTest: 'Test starten',
       scaleLabels: {
         0: 'Nie',
         1: 'Ein paar Mal im Jahr oder weniger',
@@ -149,7 +176,31 @@ const translations: Record<Language, Translations> = {
         title: 'Empfehlungen für Sie'
       },
       downloadPdf: 'PDF herunterladen',
-      shareResults: 'Ergebnisse teilen'
+      shareResults: 'Ergebnisse teilen',
+      shareTitle: 'Meine Burnout-Test Ergebnisse',
+      shareText: 'Mein Burnout-Level',
+      linkCopied: 'Link wurde in die Zwischenablage kopiert!',
+      noResultsFound: 'Keine Ergebnisse gefunden',
+      noResultsDescription: 'Es wurden keine Testergebnisse gefunden. Bitte starten Sie den Test erneut.',
+      premiumTitle: '💎 Vertiefende Analyse für 19€',
+      premiumDescription: 'Erhalten Sie eine detaillierte, von Psychologen geprüfte Analyse mit personalisierten Empfehlungen',
+      premiumFeature1: '10-seitige detaillierte Analyse',
+      premiumFeature2: 'Von Psychologen geprüft',
+      premiumFeature3: 'Personalisierte Handlungsempfehlungen',
+      premiumFeature4: 'PDF-Report zum Download',
+      premiumButton: '💎 Jetzt für 19€ buchen',
+      premiumGuarantee: '✅ 30-Tage Geld-zurück-Garantie • ✅ Sofortiger Zugang',
+      generatingPdf: 'Generiere PDF...',
+      newTest: 'Neuer Test',
+      nextStepsTitle: '🎯 Nächste Schritte',
+      forYou: 'Für Sie:',
+      nextStep1: 'Implementieren Sie die Empfehlungen',
+      nextStep2: 'Überwachen Sie Ihre Fortschritte',
+      nextStep3: 'Testen Sie sich regelmäßig',
+      professionalHelp: 'Professionelle Hilfe:',
+      profHelp1: 'Suchen Sie einen Psychologen auf',
+      profHelp2: 'Nutzen Sie unsere Partner-Netzwerke',
+      profHelp3: 'Buchen Sie eine Beratung'
     },
     email: {
       title: '💎 Vertiefende Burnout-Analyse',
@@ -159,7 +210,8 @@ const translations: Record<Language, Translations> = {
     common: {
       loading: 'Lädt...',
       error: 'Ein Fehler ist aufgetreten',
-      retry: 'Erneut versuchen'
+      retry: 'Erneut versuchen',
+      pdfDownloadComingSoon: 'PDF-Download wird implementiert...'
     }
   },
   en: {
@@ -201,6 +253,7 @@ const translations: Record<Language, Translations> = {
       backButton: 'Back',
       submitButton: 'Complete Test',
       loading: 'Loading test...',
+      startTest: 'Start Test',
       scaleLabels: {
         0: 'Never',
         1: 'A few times a year or less',
@@ -229,7 +282,31 @@ const translations: Record<Language, Translations> = {
         title: 'Recommendations for You'
       },
       downloadPdf: 'Download PDF',
-      shareResults: 'Share Results'
+      shareResults: 'Share Results',
+      shareTitle: 'My Burnout Test Results',
+      shareText: 'My Burnout Level',
+      linkCopied: 'Link copied to clipboard!',
+      noResultsFound: 'No Results Found',
+      noResultsDescription: 'No test results were found. Please start the test again.',
+      premiumTitle: '💎 Detailed Analysis for €19',
+      premiumDescription: 'Get a detailed, psychologist-reviewed analysis with personalized recommendations',
+      premiumFeature1: '10-page detailed analysis',
+      premiumFeature2: 'Reviewed by psychologists',
+      premiumFeature3: 'Personalized action recommendations',
+      premiumFeature4: 'PDF report for download',
+      premiumButton: '💎 Book now for €19',
+      premiumGuarantee: '✅ 30-day money-back guarantee • ✅ Instant access',
+      generatingPdf: 'Generating PDF...',
+      newTest: 'New Test',
+      nextStepsTitle: '🎯 Next Steps',
+      forYou: 'For You:',
+      nextStep1: 'Implement the recommendations',
+      nextStep2: 'Monitor your progress',
+      nextStep3: 'Test yourself regularly',
+      professionalHelp: 'Professional Help:',
+      profHelp1: 'See a psychologist',
+      profHelp2: 'Use our partner networks',
+      profHelp3: 'Book a consultation'
     },
     email: {
       title: '💎 Detailed Burnout Analysis',
@@ -239,7 +316,8 @@ const translations: Record<Language, Translations> = {
     common: {
       loading: 'Loading...',
       error: 'An error occurred',
-      retry: 'Try again'
+      retry: 'Try again',
+      pdfDownloadComingSoon: 'PDF download coming soon...'
     }
   },
   es: {
@@ -281,6 +359,7 @@ const translations: Record<Language, Translations> = {
       backButton: 'Atrás',
       submitButton: 'Completar Test',
       loading: 'Cargando test...',
+      startTest: 'Iniciar Test',
       scaleLabels: {
         0: 'Nunca',
         1: 'Algunas veces al año o menos',
@@ -309,7 +388,31 @@ const translations: Record<Language, Translations> = {
         title: 'Recomendaciones para Ti'
       },
       downloadPdf: 'Descargar PDF',
-      shareResults: 'Compartir Resultados'
+      shareResults: 'Compartir Resultados',
+      shareTitle: 'Mis Resultados del Test de Burnout',
+      shareText: 'Mi Nivel de Burnout',
+      linkCopied: '¡Enlace copiado al portapapeles!',
+      noResultsFound: 'No se Encontraron Resultados',
+      noResultsDescription: 'No se encontraron resultados del test. Por favor inicia el test nuevamente.',
+      premiumTitle: '💎 Análisis Detallado por €19',
+      premiumDescription: 'Obtén un análisis detallado, revisado por psicólogos, con recomendaciones personalizadas',
+      premiumFeature1: 'Análisis detallado de 10 páginas',
+      premiumFeature2: 'Revisado por psicólogos',
+      premiumFeature3: 'Recomendaciones de acción personalizadas',
+      premiumFeature4: 'Reporte PDF para descargar',
+      premiumButton: '💎 Reservar ahora por €19',
+      premiumGuarantee: '✅ Garantía de devolución de 30 días • ✅ Acceso inmediato',
+      generatingPdf: 'Generando PDF...',
+      newTest: 'Nuevo Test',
+      nextStepsTitle: '🎯 Próximos Pasos',
+      forYou: 'Para Ti:',
+      nextStep1: 'Implementa las recomendaciones',
+      nextStep2: 'Monitorea tu progreso',
+      nextStep3: 'Pruébate regularmente',
+      professionalHelp: 'Ayuda Profesional:',
+      profHelp1: 'Ve a un psicólogo',
+      profHelp2: 'Usa nuestras redes de socios',
+      profHelp3: 'Reserva una consulta'
     },
     email: {
       title: '💎 Análisis Detallado de Burnout',
@@ -319,7 +422,8 @@ const translations: Record<Language, Translations> = {
     common: {
       loading: 'Cargando...',
       error: 'Ocurrió un error',
-      retry: 'Intentar de nuevo'
+      retry: 'Intentar de nuevo',
+      pdfDownloadComingSoon: 'Descarga de PDF próximamente...'
     }
   }
 };
